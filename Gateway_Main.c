@@ -36,7 +36,7 @@ static LoRa_HandleTypeDef lora = {
 #define LORA_SF         7
 #define LORA_BW         125000UL
 #define LORA_CR         5
-#define LORA_TX_POWER   17
+#define LORA_TX_POWER   17            // 17 dB out of 24 dB
 #define LORA_SYNC_WORD  0x34
 
 #define PKT_LEN         10
