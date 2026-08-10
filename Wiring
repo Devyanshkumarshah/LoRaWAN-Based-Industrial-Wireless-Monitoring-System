@@ -1,10 +1,11 @@
 Wiring Reference
-Signal              ESP32 GPIO            STM32L476RG PinSPI 
-SCK                 GPIO 18               PB13 (SPI2)
-SPI MISO            GPIO 19               PB14 (SPI2)
-SPI MOSI            GPIO 23               PB15 (SPI2)
-NSS/CS              GPIO 5                PB12
-RESET               GPIO 14               PC6
-DIO0                GPIO 26               PC7
-VCC                 3.3V                  3.3V
-GND                 GND                   GND
+
+Signal              ESP32 GPIO            
+SCK                 GPIO 18               
+SPI MISO            GPIO 19               
+SPI MOSI            GPIO 23               
+NSS/CS              GPIO 5               
+RESET               GPIO 14               
+DIO0                GPIO 26              
+VCC                 3.3V                 
+GND                 GND                 
