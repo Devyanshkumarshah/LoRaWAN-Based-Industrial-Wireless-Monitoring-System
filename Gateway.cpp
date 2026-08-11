@@ -16,9 +16,11 @@
 #define LORA_SYNC 0X34
 
 
-char* MQTT_Server = "broker.hivemq.com";
-int MQRR_Port = 1883;
+char* MQTT_Server = "d1da3273ec674a88ad2a6f1510fe5ec3.s1.eu.hivemq.cloud";
+int MQRR_Port = 8883;
 char* MQTT_Topic = "tatasteeldemo/wsn/gateway01/data";
+char* MQTT_USER   = "ESP32_Gateway";       // leave blank if broker doesn't need auth
+char* MQTT_PASS   = "Devyansh@123";
 char* WiFi_SSID = "Devyansh"
 char* WiFi_Pass = "ESP_test32"
 
