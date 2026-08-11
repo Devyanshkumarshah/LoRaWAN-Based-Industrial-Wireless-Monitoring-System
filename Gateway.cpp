@@ -15,13 +15,10 @@
 #define LORA_CR 5
 #define LORA_SYNC 0X34
 
-// MQTT Broker Configurations 
+
 char* MQTT_Server = "broker.hivemq.com";
 int MQRR_Port = 1883;
 char* MQTT_Topic = "tatasteeldemo/wsn/gateway01/data";
-
-// wifi Configuration
-
 char* WiFi_SSID = "Devyansh"
 char* WiFi_Pass = "ESP_test32"
 
@@ -62,7 +59,7 @@ void connectWiFi()
 
 void connectMQTT()
 {
-    while(!client.connected())      //if not connected run the connection in loop
+    while(!client.connected())      
     {
         String clientId = "esp-gateway-01";
         bool connStatus;
@@ -91,7 +88,7 @@ void setup()
 {
       serial.begin(115200);
 
-      //LoRa Communication initialization
+      //LoRa Init
       LoRa.setPins(LORA_SS, LORA_RST, LORA_DIDO);
       if (!LoRa.begin(LORA_FREQ)) 
       {
@@ -105,7 +102,7 @@ void setup()
       LoRa.enableCrc();
       Serial.println("LoRa Gateway ready, waiting for packets...");
 
-      // WiFi + MQTT initialization
+     
       connectWiFi();
       client.setServer(MQTT_SERVER, MQTT_PORT);
 
@@ -124,7 +121,6 @@ void loop()
         if (packetSize != Packet_Len) 
         {
             Serial.println("Got a packet but wrong size, ignoring it");
-            // still need to clear the buffer
             while (LoRa.available()) LoRa.read();
             return;
         }
@@ -137,7 +133,7 @@ void loop()
           buf[i] = LoRa.read();
           i++;
       }
-  //now we need to check CRC for Data Integrety
+  //crc check
     uint8_t crcCalc = crcCheck(buf, 9);
     if (crcCalc != buf[9]) 
     {
@@ -145,10 +141,10 @@ void loop()
         return;
     }
 
-  // now we need to decode the fields as MQTT cant directly read the data in the raw form without any LORA WAN network 
+  // data decoding 
     uint8_t nodeId = buf[0];
     uint16_t seq = (buf[1] << 8) | buf[2];
-    int16_t temp10 = (buf[3] << 8) | buf[4];     //we didn't take the uint as temp can go negative 
+    int16_t temp10 = (buf[3] << 8) | buf[4];     
     uint16_t hum10 = (buf[5] << 8) | buf[6];
     uint16_t vbat = (buf[7] << 8) | buf[8];
 
