@@ -1,0 +1,116 @@
+#include<SPI.h>
+#include<LoRa.h>
+#include<WiFI.h>
+#include<PubSubClient.h>
+
+//   LoRa Pin Configuration
+#define LORA_SS 5
+#define LORA_RST 14
+#define LORA_DIDO 26
+
+// LoRa Radio Frequency Configuration, same as of the Sensor node connection
+#define LORA_Fq 433E6
+#define LORA_SF 7
+#define LORA_BW 125E3
+#define LORA_CR 5
+#define LORA_SYNC 0X34
+
+// MQTT Broker Configurations 
+char* MQTT_Server = "broker.hivemq.com";
+int MQRR_Port = 1883;
+char* Topic = "tatasteeldemo/wsn/gateway01/data";
+
+// configuring the wifi
+
+char* WiFi_SSID = "Devyansh"
+char* WiFi_Pass = "///////"
+
+
+WiFiClient espClient;
+PubSubClient client(espClient);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
