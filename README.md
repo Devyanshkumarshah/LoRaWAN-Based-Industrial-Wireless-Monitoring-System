@@ -1,1 +1,1 @@
-# IOT_TataSteel
+Developed a wireless industrial data acquisition system using ESP32-based Sensor Nodes and a LoRa-enabled Gateway. Sensor data is transmitted via LoRa from the node to the gateway, which forwards it over Wi-Fi to the HiveMQ MQTT broker. The project demonstrates cost-effective, scalable sensor integration for industrial automation environments.
