@@ -1,7 +1,6 @@
 #include<SPI.h>
 #include<LoRa.h>
 #include<DHT.h>
-
 //pin configuration for LoRa Module
 #define LORA_SS    5
 #define LORA_RST   14
@@ -9,19 +8,20 @@
 //pin configuration for DHT 
 #define DHT_PIN    4
 #define DHT_TYPE   DHT22
-
 #define LORA_FREQ   433E6 
-
 #define NODE_ID   0x01 
 #define packetLen 10
+uint16_t seqNum = 0;
+DHT dht(DHT_PIN, DHT_TYPE);
 
 //CRC function
-int crc8(int *data, int len)
+uint8_t crc8(uint8_t *data, uint8_t len)
 {
-  int crc = 0x00;
+  uint8_t crc = 0x00;
+  
   for(int i = 0; i < len; i++)
   {
-    int byte = data[i];
+    uint8_t byte = data[i];
     for(int b = 0; b < 8; b++)
     {
       if ((crc ^ byte) & 0x80)
@@ -37,7 +37,7 @@ int crc8(int *data, int len)
   return crc;
 }
 
-void buildPacket(int *buf; float temp; float hum)
+void buildPacket(uint8_t *buf, float temp, float hum)
 {
     int16_t temp10 = (int16_t)(temp * 10);
     uint16_t hum10 = (uint16_t)(hum  * 10);
@@ -77,12 +77,13 @@ void loop() {
         hum  = 0.0f;
     }
 
-    uint8_t pkt[PKT_LEN];
+    uint8_t pkt[packetLen];
+
     buildPacket(pkt, temp, hum);
 
     // Transmit
     LoRa.beginPacket();
-    LoRa.write(pkt, PKT_LEN);
+    LoRa.write(pkt, packetLen);
     int ret = LoRa.endPacket();   // blocking send
 
     // if (ret) {
@@ -92,7 +93,9 @@ void loop() {
     // } else {
     //     Serial.println("[ERROR] TX failed");
     // }
+    if(ret)
+    {
+    seqNum++;
+    }
     delay(10000);   // Transmit every 10 seconds
 }
-
-
